@@ -49,14 +49,22 @@ class Random(object):
         As in Java, the general rule is that this method returns an int that
         is `bits` bits long, where each bit is nearly equally likely to be 0
         or 1.
-
-        Unlike the Java implementation, `bits` may be as large as 48, since
-        Python ints are arbitrarily long. This does not affect the correctness
-        of the generator.
         """
 
+        if bits < 1:
+            bits = 1
+        elif bits > 32:
+            bits = 32
+
         self._seed = (self._seed * 0x5deece66dl + 0xb) & ((1 << 48) - 1)
-        return self._seed >> (48 - bits)
+        retval = self._seed >> (48 - bits)
+
+        # Python and Java don't really agree on how ints work. This converts
+        # the unsigned generated int into a signed int if necessary.
+        if retval & (1 << 31):
+            retval -= (1 << 32)
+
+        return retval
 
     def nextBytes(self, l):
         """
@@ -108,7 +116,13 @@ class Random(object):
         so we generate two 32-bit numbers and glue them together.
         """
 
-        return (self.next(32) << 32) + self.next(32)
+        retval = (self.next(32) << 32) + self.next(32)
+
+        # Fix signs. See the similar snippet in next().
+        if retval & (1 << 63):
+            retval -= (1 << 64)
+
+        return retval
 
     def nextBoolean(self):
         """

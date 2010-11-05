@@ -16,5 +16,9 @@ class AccuracyTest(unittest.TestCase):
         standard = -1155484576
         self.assertEqual(self.r.nextInt(), standard)
 
+    def test_nextLong(self):
+        standard = -4962768465676381896
+        self.assertEqual(self.r.nextLong(), standard)
+
 if __name__ == "__main__":
     unittest.main()
