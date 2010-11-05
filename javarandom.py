@@ -116,13 +116,7 @@ class Random(object):
         so we generate two 32-bit numbers and glue them together.
         """
 
-        retval = (self.next(32) << 32) + self.next(32)
-
-        # Fix signs. See the similar snippet in next().
-        if retval & (1 << 63):
-            retval -= (1 << 64)
-
-        return retval
+        return (self.next(32) << 32) + self.next(32)
 
     def nextBoolean(self):
         """
