@@ -12,6 +12,12 @@ class AccuracyTest(unittest.TestCase):
     def test_trivial(self):
         pass
 
+    def test_nextBytes(self):
+        standard = [96, -76, 32, -69, 56, 81, -39, -44]
+        l = [None] * len(standard)
+        self.r.nextBytes(l)
+        self.assertEqual(l, standard)
+
     def test_nextInt(self):
         standard = -1155484576
         self.assertEqual(self.r.nextInt(), standard)
