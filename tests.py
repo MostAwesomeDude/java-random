@@ -35,15 +35,15 @@ class AccuracyTest(unittest.TestCase):
         self.assertEqual(self.r.nextBoolean(), standard)
 
     def test_nextFloat(self):
-        standard = 0.730968
+        standard = 0.73096776008605960
         self.assertEqual(self.r.nextFloat(), standard)
 
     def test_nextDouble(self):
-        standard = 0.730968
+        standard = 0.73096778737665700
         self.assertEqual(self.r.nextDouble(), standard)
 
     def test_nextGaussian(self):
-        standard = 0.802533, -0.901546
+        standard = 0.80253306373903050, -0.90154608841751220
         self.assertEqual((self.r.nextGaussian(), self.r.nextGaussian()),
             standard)
 
