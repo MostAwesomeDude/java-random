@@ -104,10 +104,10 @@ class Random(object):
         if not (n & (n - 1)):
             return (n * self.next(31)) >> 31
 
-        bits = next(31)
+        bits = self.next(31)
         val = bits % n
         while (bits - val + n - 1) < 0:
-            bits = next(31)
+            bits = self.next(31)
             val = bits % n
 
         return val
@@ -127,7 +127,7 @@ class Random(object):
         Return a random bool.
         """
 
-        return bool(next(1))
+        return bool(self.next(1))
 
     def nextFloat(self):
         """
@@ -138,14 +138,14 @@ class Random(object):
         precision space.
         """
 
-        return next(24) / float(1 << 24)
+        return self.next(24) / float(1 << 24)
 
     def nextDouble(self):
         """
         Return a random float in (0, 1).
         """
 
-        return ((next(26) << 27) + next(27)) / float(1 << 53)
+        return ((self.next(26) << 27) + self.next(27)) / float(1 << 53)
 
     def nextGaussian(self):
         """
